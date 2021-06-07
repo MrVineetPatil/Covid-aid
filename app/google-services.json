@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "766517747506",
+    "project_id": "hbm1-2265d",
+    "storage_bucket": "hbm1-2265d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766517747506:android:5901bc6923230067f1c12b",
+        "android_client_info": {
+          "package_name": "com.moutamid.covidaid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766517747506-ku6js629kufr7k6a3746amklm8itvmsj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5DLnYB0-IQiK5jgO4_HPoRwwGb6HPgtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766517747506-ku6js629kufr7k6a3746amklm8itvmsj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

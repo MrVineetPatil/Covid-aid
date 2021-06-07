@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.moutamid.covidaid">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/broadcast"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CustomApiProject">
+        <activity android:name="com.moutamid.covidaid.FormActivity"></activity>
+        <activity android:name="com.moutamid.covidaid.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.moutamid.covidaid.ActivityLogin" />
+        <activity android:name="com.moutamid.covidaid.ActivitySignUp" />
+    </application>
+
+</manifest>
