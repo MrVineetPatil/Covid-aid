@@ -1,19 +1,22 @@
 package com.moutamid.covidaid;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -23,6 +26,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.io.IOException;
+import java.util.stream.Collectors;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+
+
 public class FormActivity extends AppCompatActivity {
 
     SwitchCompat coughSwitch, feverSwitch, throatSwitch, breadthSwitch, headacheSwitch,
@@ -30,10 +43,29 @@ public class FormActivity extends AppCompatActivity {
 
     TextInputEditText spo2Edittext, heartRateEdittext;
 
+    public void onViewCreated(View view, Bundle savedInstanceState)
+    {
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         coughSwitch = findViewById(R.id.cough_switch);
         feverSwitch = findViewById(R.id.fever_switch);
         throatSwitch = findViewById(R.id.throat_switch);
@@ -44,6 +76,7 @@ public class FormActivity extends AppCompatActivity {
         heartRateEdittext = findViewById(R.id.heartRate_edittext);
 
         findViewById(R.id.submitBtn).setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
 
@@ -66,97 +99,76 @@ public class FormActivity extends AppCompatActivity {
                     Toast.makeText(FormActivity.this, "Please enter heart rate!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String JsonUrl = "https://covaccine2.herokuapp.com/";
-                JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                        (Request.Method.POST, JsonUrl, null, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                String inline = response.toString();
-                               //Toast.makeText(FormActivity.this, ""+response, Toast.LENGTH_SHORT).show();
-                                new Utils().showDialog(FormActivity.this,
-                                        "Api response",
-                                        ""+inline,
-                                        "",
-                                        "",
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                dialogInterface.dismiss();
-                                            }
-                                        }, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                dialogInterface.dismiss();
-                                            }
-                                        }, true);
-//                                try {
-////                                    JSONObject obj = new JSONObject(response.toString());
-//
-//                                }
-//                                catch (JSONException e) {
-//
-//                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        }){
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<String, String>();
 
 
-                        params.put("Contact with confirmed",covidSwitch.isChecked() ? "1" : "0");
-                        params.put("Headache",headacheSwitch.isChecked() ? "1" : "0");
-                        params.put("Sore throat",throatSwitch.isChecked() ? "1" : "0");
-                        params.put("Shortness of breath",breadthSwitch.isChecked() ? "1" : "0");
-                        params.put("Cough",coughSwitch.isChecked() ? "1" : "0");
-                        params.put("Fever",feverSwitch.isChecked() ? "1" : "0");
-                        params.put("Male","1");
-                        params.put("Age 60+","1");
-
-
-                        return params;
+                OkHttpClient client = new OkHttpClient().newBuilder()
+                        .build();
+                MediaType mediaType = MediaType.parse("application/json");
+                Map<String, String> params = new HashMap<>();
+                params.put("Contact with confirmed",covidSwitch.isChecked() ? "1" : "0");
+                params.put("Headache",headacheSwitch.isChecked() ? "1" : "0");
+                params.put("Sore throat",throatSwitch.isChecked() ? "1" : "0");
+                params.put("Shortness of breath",breadthSwitch.isChecked() ? "1" : "0");
+                params.put("Cough",coughSwitch.isChecked() ? "1" : "0");
+                params.put("Fever",feverSwitch.isChecked() ? "1" : "0");
+                params.put("Male","1");
+                params.put("Age","1");
+                String body1 = "{"+params.entrySet().stream() .map(e -> "\""+ e.getKey() + "\":\"" + String.valueOf(e.getValue()) + "\"") .collect(Collectors.joining(", "))+"}";
+                RequestBody body = RequestBody.create(mediaType, body1);
+                okhttp3.Request request;
+                request = new okhttp3.Request.Builder()
+                        .url("https://covaccine2.herokuapp.com/")
+                        .method("POST", body)
+                        .addHeader("Content-Type", "application/json")
+                        .build();
+                try {
+                    okhttp3.Response response = client.newCall(request).execute();
+                    //System.out.println(response.body().toString());
+                   // JSONObject json;
+                    try {
+                        JSONObject json = new JSONObject(response.body().string());
+                        String name = json.getString("result");
+                        System.out.println(name);
+                        new Utils().showDialog(FormActivity.this,
+                                "",
+                                ""+name,
+                                "",
+                                "",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                }, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                }, true);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                };
-//                params.put("Contact with confirmed","1");
-//                params.put("Headache","1");
-//                params.put("Sore throat","1");
-//                params.put("Shortness of breath","1");
-//                params.put("Cough","1");
-//                params.put("Fever","1");
-//                params.put("Male","1");
-//                params.put("Age 60+","1");
-                // Access the RequestQueue through your singleton class.
-                RequestQueue requestQueue = Volley.newRequestQueue(FormActivity.this);
-                requestQueue.add(jsObjRequest);
-//                new Utils().showDialog(FormActivity.this,
-//                        "",
-//                        "Cough: " + (coughSwitch.isChecked() ? "1" : "0")
-//                                + "\nFever: " + (feverSwitch.isChecked() ? "1" : "0")
-//                                + "\nSoar throat: " + (throatSwitch.isChecked() ? "1" : "0")
-//                                + "\nShortness of breath: " + (breadthSwitch.isChecked() ? "1" : "0")
-//                                + "\nHeadache: " + (headacheSwitch.isChecked() ? "1" : "0")
-//                                + "\nContact with Covid: " + (covidSwitch.isChecked() ? "1" : "0")
-//                                + "\nSpO2 value: " + spo2Edittext.getText().toString()
-//                                + "\nHeart rate: " + heartRateEdittext.getText().toString()
-//                        ,
-//                        "",
-//                        "",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                            }
-//                        }, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                            }
-//                        }, true);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
             }
+
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> params=new HashMap<>();
+//                params.put("Contact with confirmed",covidSwitch.isChecked() ? "1" : "0");
+//                params.put("Headache",headacheSwitch.isChecked() ? "1" : "0");
+//                params.put("Sore throat",throatSwitch.isChecked() ? "1" : "0");
+//                params.put("Shortness of breath",breadthSwitch.isChecked() ? "1" : "0");
+//                params.put("Cough",coughSwitch.isChecked() ? "1" : "0");
+//                params.put("Fever",feverSwitch.isChecked() ? "1" : "0");
+//                params.put("Male","1");
+//                params.put("Age","1");
+//                return params;
+//            }
         });
 
     }

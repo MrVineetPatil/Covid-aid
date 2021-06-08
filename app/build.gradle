@@ -12,6 +12,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,4 +46,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.android.volley:volley:1.2.0'
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation 'androidx.multidex:multidex:2.0.1'
 }
