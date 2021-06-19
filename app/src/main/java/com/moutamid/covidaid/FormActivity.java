@@ -41,7 +41,7 @@ public class FormActivity extends AppCompatActivity {
     SwitchCompat coughSwitch, feverSwitch, throatSwitch, breadthSwitch, headacheSwitch,
             covidSwitch;
 
-    TextInputEditText spo2Edittext, heartRateEdittext;
+    TextInputEditText spo2Edittext, heartRateEdittext,temperature;
 
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
@@ -74,6 +74,7 @@ public class FormActivity extends AppCompatActivity {
         covidSwitch = findViewById(R.id.covid_switch);
         spo2Edittext = findViewById(R.id.spo2_edittext);
         heartRateEdittext = findViewById(R.id.heartRate_edittext);
+        temperature = findViewById(R.id.temperature);
 
         findViewById(R.id.submitBtn).setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -87,6 +88,16 @@ public class FormActivity extends AppCompatActivity {
 
                 if (spo2Edittext.getText().toString().isEmpty()) {
                     Toast.makeText(FormActivity.this, "Please enter SpO2 value!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (temperature.getText() == null) {
+                    Toast.makeText(FormActivity.this, "Please enter temperature value!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (temperature.getText().toString().isEmpty()) {
+                    Toast.makeText(FormActivity.this, "Please enter temperature value!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

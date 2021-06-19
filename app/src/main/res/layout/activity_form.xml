@@ -95,14 +95,33 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Heart rate BPM (60-100)"
+            android:hint="Temperature(Farenheit)"
+            android:id="@+id/temperature"
+            android:inputType="number"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/heartRate_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Heart rate BPM (60-100)"
             android:inputType="number"
             android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/submitBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -110,7 +129,6 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/submit_btn_background"
         android:text="Submit"
-        android:id="@+id/submitBtn"
         android:textColor="@color/white" />
 
 </LinearLayout>
