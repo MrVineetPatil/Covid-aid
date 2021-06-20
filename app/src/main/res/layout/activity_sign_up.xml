@@ -20,7 +20,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
+            android:src="@drawable/arrow" />
 
         <TextView
             android:layout_width="match_parent"
@@ -275,7 +275,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="4"
-                android:background="@drawable/submit_btn_background"
+                android:background="@drawable/button"
                 android:text="Create Account"
                 android:textColor="@color/white" />
 

@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,6 +45,7 @@ public class FormActivity extends AppCompatActivity {
             covidSwitch;
 
     TextInputEditText spo2Edittext, heartRateEdittext,temperature;
+
 
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
@@ -76,10 +80,17 @@ public class FormActivity extends AppCompatActivity {
         heartRateEdittext = findViewById(R.id.heartRate_edittext);
         temperature = findViewById(R.id.temperature);
 
+
+        spo2Edittext.setFilters( new InputFilter[]{ new InputFilterMinMax( "1" , "100" )});
+        heartRateEdittext.setFilters( new InputFilter[]{ new InputFilterMinMax( "1" , "150" )});
+        temperature.setFilters( new InputFilter[]{ new InputFilterMinMax( "1" , "120" )});
+
         findViewById(R.id.submitBtn).setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
+
+
 
                 if (spo2Edittext.getText() == null) {
                     Toast.makeText(FormActivity.this, "Please enter SpO2 value!", Toast.LENGTH_SHORT).show();
@@ -139,23 +150,34 @@ public class FormActivity extends AppCompatActivity {
                     try {
                         JSONObject json = new JSONObject(response.body().string());
                         String name = json.getString("result");
-                        System.out.println(name);
-                        new Utils().showDialog(FormActivity.this,
-                                "",
-                                ""+name,
-                                "",
-                                "",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                    }
-                                }, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                    }
-                                }, true);
+                        JSONArray res = json.getJSONArray("prediction_arr");
+                        double result[] = new double[res.length()];
+                        for(int i=0;i<res.length();i++){
+                            result[i] = res.getJSONObject(i).getDouble("val");
+                        }
+                        System.out.println(result[0]);
+//                        new Utils().showDialog(FormActivity.this,
+//                                "",
+//                                ""+name,
+//                                "",
+//                                "",
+//                                new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        dialogInterface.dismiss();
+//                                    }
+//                                }, new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        dialogInterface.dismiss();
+//                                    }
+//                                }, true);
+                        Intent intent = new Intent(getApplicationContext(), PredictionPage.class);
+                        intent.putExtra("message_key",name);
+                        intent.putExtra("result",result);
+                        startActivity(intent);
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

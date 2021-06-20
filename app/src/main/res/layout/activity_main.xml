@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
     <ImageView
@@ -24,7 +25,9 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
         android:text="Welcome \nto COVID-Aid project"
-        android:textColor="@color/darkBlue"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bold"
+
         android:textSize="25sp"
         android:textStyle="bold" />
 
@@ -38,7 +41,9 @@
         android:layout_marginEnd="40dp"
         android:gravity="center"
         android:text="This project is aimed at predicting whether a person is COVID+ve or not."
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:fontFamily="@font/light"
+        android:textStyle="bold"
         android:textSize="17sp" />
 
     <LinearLayout
@@ -63,7 +68,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/submit_btn_background"
+                android:background="@drawable/button"
                 android:text="Sign up"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -89,7 +94,7 @@
             android:id="@+id/loginBtn_welcome"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/submit_btn_background"
+            android:background="@drawable/button"
             android:text="Log in"
             android:textColor="@color/white" />
 

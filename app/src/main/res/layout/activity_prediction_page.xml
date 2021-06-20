@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".PredictionPage">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Visualise"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="Visualise"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/received_value_id"
+        app:layout_constraintVertical_bias="0.844" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Analyse"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="Analyse"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/received_value_id"
+        app:layout_constraintVertical_bias="0.971" />
+
+    <TextView
+        android:id="@+id/received_value_id"
+        android:layout_width="352dp"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/light"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <TextView
+        android:id="@+id/received_value_id2"
+        android:layout_width="352dp"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/light"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.267" />
+
+    <TextView
+        android:id="@+id/received_value_id3"
+        android:layout_width="352dp"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/light"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.435" />
+
+    <TextView
+        android:id="@+id/received_value_id4"
+        android:layout_width="352dp"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/light"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.607" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="208dp"
+        android:layout_height="47dp"
+        android:gravity="left"
+        android:text="USING LGBM:"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bold"
+        app:layout_constraintBottom_toTopOf="@+id/received_value_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.147"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="208dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="320dp"
+        android:gravity="left"
+        android:text="USING C4.5:"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bold"
+        app:layout_constraintBottom_toTopOf="@+id/received_value_id4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.147"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="208dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="228dp"
+        android:gravity="left"
+        android:text="USING ML:"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bold"
+        app:layout_constraintBottom_toTopOf="@+id/received_value_id3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="208dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="112dp"
+        android:gravity="left"
+        android:text="USING DL:"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bold"
+        app:layout_constraintBottom_toTopOf="@+id/received_value_id2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.147"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

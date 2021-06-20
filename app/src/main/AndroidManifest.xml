@@ -9,16 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomApiProject">
-        <activity android:name="com.moutamid.covidaid.FormActivity"></activity>
-        <activity android:name="com.moutamid.covidaid.MainActivity">
+        <activity android:name=".Analyse4"></activity>
+        <activity android:name=".Analyse3" />
+        <activity android:name=".Analyse2" />
+        <activity android:name=".Analyse1" />
+        <activity android:name=".PredictionPage" />
+        <activity android:name=".Visualisation" />
+        <activity android:name=".FormActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.moutamid.covidaid.ActivityLogin" />
-        <activity android:name="com.moutamid.covidaid.ActivitySignUp" />
+        <activity android:name=".ActivityLogin" />
+        <activity android:name=".ActivitySignUp" />
     </application>
 
 </manifest>
